@@ -16,7 +16,6 @@ if(isset($_POST['submit'])){
 	$username = $_POST['username'];
 	$pwd = $_POST['password'];
 
-
 	$select = "SELECT * FROM `user` WHERE username = '$username'";
 
 	$result = $mysqli->query($select);
@@ -32,8 +31,10 @@ if(isset($_POST['submit'])){
 
 				//Get the user data 
 				$_SESSION['username']=$username;
+				$_SESSION['user_id']=$row['user_id'];
+				
 
-				header("refresh:1; url= Home.php");
+				header("refresh:1; url= Questions.php");
 			}else{
 				echo "Invalid Password";
 			}

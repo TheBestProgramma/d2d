@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!--
-  	Bootsrap 
+  	Bootstrap 
   -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -22,11 +22,31 @@
 	
 </head>
 
+
 <body>
+
+  <!----------------------------------------------------
+  Creating a Database Connection
+------------------------------------------------------->
+
+<?php
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "d2d";
+
+  // Create connection
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  // Check connection
+  if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+  }
+
+?>
 	
-	<!--
+	<!---------------------------------------------------
 		Navbar 1
-	-->
+	----------------------------------------------------->
 	<nav class="navbar navbar-inverse">
   
   	<div class="container-fluid">
@@ -54,10 +74,10 @@
               <?php
             session_start();
 
-             if(
-              isset($_SESSION['username'])){
-              echo $_SESSION['username']; 
+             if(isset($_SESSION['username'])){
+              echo $_SESSION['username'];  
             }
+
             ?>  
             </a>
         </li>
@@ -78,43 +98,93 @@
 	-->
 <ul class="nav nav-pills">
   <li class="nav-item">
-    <a class="nav-link active" href="News.php">Whats Hot?</a>
+    <a class="nav-link " href="News.php">Whats Hot?</a>
+
   </li>
 
-  <!--
-  
-		Categories
-  
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">Primary Care</a>
-      <a class="dropdown-item" href="#">Hospitalism</a>
-      <a class="dropdown-item" href="#">Surgery</a>
-      <a class="dropdown-item" href="#">Cardiology</a>
-      <a class="dropdown-item" href="#">Dermatology</a>
-      <a class="dropdown-item" href="#">Endicronology</a>
-      <a class="dropdown-item" href="#">Gastroenterology</a>
-      <a class="dropdown-item" href="#">Infectious Diseases</a>
-      <a class="dropdown-item" href="#">Opthamology</a>
-      <a class="dropdown-item" href="#">Gynecology</a>
-      <a class="dropdown-item" href="#">E.N.T</a>
-      <a class="dropdown-item" href="#">Pediatrics</a>
-      <a class="dropdown-item" href="#">Pulmomology</a>
-      <a class="dropdown-item" href="#">Psychology</a>
-      <div class="dropdown-divider"></div>
-    </div> 
-  </li>
--->
   <li class="nav-item">
-    <a class="nav-link" href="Comments.php">Ask Anything</a>
+    <a class="nav-link" href="Comments.php">Enquiries for the Creator</a>
   </li>
 
 </ul>
 
+<!--
+	Questions Tab Navigation
+-->
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#home">Ask a Question</a></li>
+  <li><a data-toggle="tab" href="#menu1">Review your Questions</a></li>
+  <li><a data-toggle="tab" href="#menu2">Questions you could Answer</a></li>
+</ul>
 
+<div class="tab-content">
+  <div id="home" class="tab-pane fade in active">
 
+  	<!-------------------------------------------
+		Posting Question
+  	-------------------------------------------->
+    <h3>Ask a Question</h3>
+    
+    <form class="form-group" action="ask_question.php" name="askquestion_form" method="POST">
+		<br>
 
+      <label for="topic">Topic:</label>
+      <input type="text" class="form-control" id="topic" name="topic"><br>
+
+      <label for="content">Content:</label>
+	    <textarea class="form-control" name=question id="textarea" rows="3" placeholder="Ask a Question Here">
+	    </textarea><br>
+
+	    <button type="submit" class="btn btn-primary">Post</button>
+
+    </div>
+	 </form>
+
+  	<!--------------------------------------------
+		Review posted Questions
+  	--------------------------------------------->
+
+  <div id="menu1" class="tab-pane fade" >
+
+    <h3>Questions you Asked</h3>
+
+    <div name = "question_view">
+      
+      <?php  
+      
+        $user_id = $_SESSION['user_id'];
+
+        $sql = "SELECT user.username, question.question, question.topic, question.time FROM question INNER JOIN user ON question.user_id = user.user_id WHERE question.user_id='$user_id'";
+        $res = $conn->query($sql);
+
+        while ( $r = mysqli_fetch_assoc($res))  {         
+        ?>
+        <p>
+          <?php 
+            echo $r['username'];  ?>    <br> <?php
+            echo $r['topic'];     ?>    <br> <?php
+            echo $r['question'];  ?>    <br> <?php
+            echo $r['time'];      ?>    <br> <?php
+
+          ?> 
+        </p><br>
+      <?php } ?>
+    </div>
+    
+  </div>
+
+  <!----------------------------------------------
+		Answer asked Questions
+  ------------------------------------------------>
+  <div id="menu2" class="tab-pane fade">
+    <h3>Questions you could Answer</h3>
+    <p>Some con</p>
+  </div>
+
+</div>
+<!----------------------
+		Footer
+-------------------------->
 
 </body>
 

@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $mysqli = new mysqli("localhost", "root", "", "d2d");
  
 // Check connection
@@ -8,14 +10,15 @@ if($mysqli === false){
 }
  
 // Escape user inputs for security
-$username = $mysqli->real_escape_string($_REQUEST['username']);
-$password = $mysqli->real_escape_string($_REQUEST['password']);
-$email = $mysqli->real_escape_string($_REQUEST['email']);
+
+$user_id = $_SESSION['user_id'];
+$question = $mysqli->real_escape_string($_REQUEST['question']);
+$topic = $mysqli->real_escape_string($_REQUEST['topic']);
  
 // attempt insert query execution
-$sql = "INSERT INTO user (username, password, email) VALUES ('$username', '$password','$email')";
+$sql = "INSERT INTO question (user_id, question, topic) VALUES ('$user_id', '$question','$topic')";
 if($mysqli->query($sql) === true){
-    echo "User Added Successfully";
+    echo "Question Added Successfully";
     header("location: Questions.php");
 } else{
     echo "ERROR: Could not able to execute $sql. " . $mysqli->error;
