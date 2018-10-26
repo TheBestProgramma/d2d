@@ -115,6 +115,7 @@
   <li class="active"><a data-toggle="tab" href="#home">Ask a Question</a></li>
   <li><a data-toggle="tab" href="#menu1">Review your Questions</a></li>
   <li><a data-toggle="tab" href="#menu2">Questions you could Answer</a></li>
+  <li><a data-toggle="tab" href="#menu3">Questions based on Categories</a></li>
 </ul>
 
 <div class="tab-content">
@@ -178,9 +179,13 @@
   ------------------------------------------------>
   <div id="menu2" class="tab-pane fade">
     <h3>Questions you could Answer</h3>
-    <p>Some con</p>
+    <p></p>
   </div>
 
+</div>
+
+<!------------------------------------------------
+  Prompt for Questions Based on Categories
 </div>
 <!----------------------
 		Footer
