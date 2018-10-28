@@ -186,6 +186,9 @@
 
 <!------------------------------------------------
   Prompt for Questions Based on Categories
+-------------------------------------------------->
+<div id="menu1" class="tab-pane fade" >
+
 </div>
 <!----------------------
 		Footer
