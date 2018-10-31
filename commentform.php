@@ -9,16 +9,15 @@ if($mysqli === false){
 }
  
 // Escape user inputs for security
-$name = $mysqli->real_escape_string($_REQUEST['name']);
-$subject = $mysqli->real_escape_string($_REQUEST['subject']);
-$email = $mysqli->real_escape_string($_REQUEST['email']);
- 
+$comment = $mysqli->real_escape_string($_REQUEST['comment']);
+$tags = $mysqli->real_escape_string($_REQUEST['tags']);
+$postID = $mysqli->real_escape_string($_REQUEST['PostID']);
 // attempt insert query execution
-$sql = "INSERT INTO comments (name, email, subject, status) VALUES ('$name', '$email','$subject', 'draft')";
+$sql = "INSERT INTO comments (commentID,comment,tags) VALUES ('$commentID','$comment','$tags')";
 if($mysqli->query($sql) === true){
-	header("location:Comments.html");
+	header("location:Comments.php");
     echo '<script language="javascript">';
-	echo 'alert("message successfully sent")';
+	echo 'alert("comment successfully posted")';
 	echo '</script>';
 } else{
     echo "ERROR: Could not able to execute $sql. " . $mysqli->error;

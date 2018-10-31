@@ -9,16 +9,16 @@ if($mysqli === false){
 }
  
 // Escape user inputs for security
+$post = $mysqli->real_escape_string($_REQUEST['post']);
+$tags = $mysqli->real_escape_string($_REQUEST['tags']);
 $username = $mysqli->real_escape_string($_REQUEST['username']);
-$password = $mysqli->real_escape_string($_REQUEST['password']);
-$email = $mysqli->real_escape_string($_REQUEST['email']);
- 
 // attempt insert query execution
-$password=md5($password);
-$sql = "INSERT INTO user (username, password, email) VALUES ('$username', '$password','$email')";
+$sql = "INSERT INTO posts (post,tags) VALUES ('$post','$tags')";
 if($mysqli->query($sql) === true){
-    echo "Account Created Successfully!";
-    header("location: Home.html");
+	header("location:post.php");
+    echo '<script language="javascript">';
+	echo 'alert("Post uploaded successfully!")';
+	echo '</script>';
 } else{
     echo "ERROR: Could not able to execute $sql. " . $mysqli->error;
 }

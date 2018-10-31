@@ -1,7 +1,7 @@
 </!DOCTYPE html>
 <html>
 <head>
-	<title>Doc2Doc</title>
+	<title>Comments</title>
 
 
   <meta charset="utf-8">
@@ -56,7 +56,7 @@
             <a href="#">
               <?php
             session_start();
-
+            
              if(
               isset($_SESSION['username'])){
               echo $_SESSION['username']; 
@@ -117,7 +117,7 @@
 
 
 <div class="panel panel-default">
-<div class="panel-heading">Submit Your Question</div>
+<div class="panel-heading">Submit Your comment</div>
   <div class="panel-body">
     <form method="post" action="commentform.php">
       <div class="form-group">
@@ -125,11 +125,7 @@
       <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Name">
     </div>
     <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Subject</label>
+      <label for="exampleInputPassword1">Comment</label>
       <textarea name="subject" class="form-control" rows="3"></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
